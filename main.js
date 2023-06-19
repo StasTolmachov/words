@@ -22,8 +22,8 @@ server.use('/api', wordRouter)
 async function startApp() {
     try {
         // await mongoose.connect(DB_URL)
-        server.listen(PORTlocal, HOSTlocal, () => {
-            console.log(`Server started: http://${HOSTlocal}:${PORTlocal}`)
+        server.listen(PORTserver, HOSTserver, () => {
+            console.log(`Server started: http://${HOSTserver}:${HOSTserver}`)
         })
     } catch (e) {
         console.log(e)

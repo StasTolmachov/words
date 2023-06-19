@@ -6,8 +6,11 @@ server.set('view engine', 'ejs');
 
 const wordRouter = require('./routes/word.routes')
 
-const PORT = 8080
-const HOST = "143.198.98.87"
+const PORTserver = 8080
+const PORTlocal = 3000
+
+const HOSTserver = "143.198.98.87"
+const HOSTlocal = "localhost"
 
 // const DB_URL = `mongodb+srv://stasvv1:tUe8UsaR2XoIQKNa@words.iz19pkt.mongodb.net/?retryWrites=true&w=majority`
 
@@ -19,8 +22,8 @@ server.use('/api', wordRouter)
 async function startApp() {
     try {
         // await mongoose.connect(DB_URL)
-        server.listen(PORT, HOST, () => {
-            console.log(`Server started: http://${HOST}:${PORT}`)
+        server.listen(PORTlocal, HOSTlocal, () => {
+            console.log(`Server started: http://${HOSTlocal}:${PORTlocal}`)
         })
     } catch (e) {
         console.log(e)

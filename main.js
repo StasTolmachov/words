@@ -9,7 +9,7 @@ const wordRouter = require('./routes/word.routes')
 const PORTserver = 8080
 const PORTlocal = 3000
 
-const HOSTserver = "words.tolmachov.dev"
+const HOSTserver = "wordsen.tolmachov.dev"
 const HOSTlocal = "localhost"
 
 // const DB_URL = `mongodb+srv://stasvv1:tUe8UsaR2XoIQKNa@words.iz19pkt.mongodb.net/?retryWrites=true&w=majority`

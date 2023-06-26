@@ -1,29 +1,36 @@
 // const mongoose = require('mongoose')
 
+
 const express = require('express')
-const server = express()
-server.set('view engine', 'ejs');
+const api = express()
+api.set('view engine', 'ejs');
 
 const wordRouter = require('./routes/word.routes')
 
-const PORTserver = 8080
+
+const PORTapi = 8080
 const PORTlocal = 3000
 
-const HOSTserver = "wordsen.tolmachov.dev"
+const HOSTapi = "wordsen.tolmachov.dev"
 const HOSTlocal = "localhost"
+
+const HOST = HOSTlocal
+const PORT = PORTlocal
+
+
 
 // const DB_URL = `mongodb+srv://stasvv1:tUe8UsaR2XoIQKNa@words.iz19pkt.mongodb.net/?retryWrites=true&w=majority`
 
-server.use(express.json())
+api.use(express.json())
 
-server.use('/api', wordRouter)
+api.use('/api', wordRouter)
 
 
 async function startApp() {
     try {
         // await mongoose.connect(DB_URL)
-        server.listen(PORTserver, HOSTserver, () => {
-            console.log(`Server started: http://${HOSTserver}:${PORTserver}`)
+        api.listen(PORT, HOST, () => {
+            console.log(`Server started: http://${HOST}:${PORT}/api/getWords`)
         })
     } catch (e) {
         console.log(e)

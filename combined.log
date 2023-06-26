@@ -1,0 +1,4 @@
+2023-06-20 23:14:09 [32mINFO[39m 1  Message: Hello world
+2023-06-20 23:14:09 [33mWARN[39m 2  Message: Warning message
+2023-06-20 23:14:09 [31mERROR[39m 3  Message: Error info
+2023-06-20 23:14:09 [32mINFO[39m 4  Message: logger

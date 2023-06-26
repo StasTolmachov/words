@@ -8,6 +8,12 @@
 
 <h1>Words</h1>
 
+<div>
+    <form>
+        <input type="text" class="input-text" id="input-text">
+    </form>
+</div>
+
 <div id="words">
     <% allWords.rows.forEach(function(row) { %>
         <p>English: <%= row.english_word %>, Russian: <%= row.russian_translation %></p>
@@ -15,4 +21,5 @@
 </div>
 
 </body>
+<script src="/script/allWords.js"></script>
 </html>

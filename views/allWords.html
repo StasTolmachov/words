@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Words</title>
+  <style>
+    /* Стили для списка результатов */
+    #results {
+      border: 1px solid #ccc;
+      display: none;
+    }
+    .selected {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Words</h1>
+
+<div>
+  <form>
+    <input type="text" class="input-text" id="input-text" autofocus>
+  </form>
+</div>
+
+<div>
+  <ul id="results"></ul>
+</div>
+
+<div>
+  <form class="wordInfo" id="wordInfo">
+    <input type="text" id="wordEn" placeholder="wordEn">
+    <input type="text" id="wordRu" placeholder="wordRu">
+
+  </form>
+</div>
+
+</body>
+<script src="/script/allWords.js"></script>
+</html>

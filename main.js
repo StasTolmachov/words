@@ -7,6 +7,8 @@ api.set('view engine', 'ejs');
 
 const wordRouter = require('./routes/word.routes')
 
+api.use(express.static('public'));
+
 
 const PORTapi = 8080
 const PORTlocal = 3000
@@ -30,7 +32,7 @@ async function startApp() {
     try {
         // await mongoose.connect(DB_URL)
         api.listen(PORT, HOST, () => {
-            console.log(`Server started: http://${HOST}:${PORT}/api/getWords`)
+            console.log(`Server started: http://${HOST}:${PORT}/api/allWords`)
         })
     } catch (e) {
         console.log(e)

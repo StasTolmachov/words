@@ -1,16 +1,5 @@
 console.log('script allWords')
 
-
-// тестовый запрос данных
-// fetch('/api/getAllWords')
-//     .then(response => response.json())
-//     .then(allWords => {
-//         console.log(allWords.rows[2].english_word)
-//         console.log(allWords.rows)
-//
-//     })
-
-
 //окно поиска по словам из базы данных
 const searchInput = document.getElementById('input-text')
 const resultList = document.getElementById('results')
@@ -19,7 +8,15 @@ const wordInfo = document.getElementById('wordInfo')
 
 
 const wordEn = document.getElementById('wordEn')
-const wordRu = document.getElementById('wordRu')
+const Translation = document.getElementById('Translation')
+const transcription = document.getElementById('transcription')
+const rating = document.getElementById('rating')
+const dict = document.getElementById('dict')
+const status = document.getElementById('status')
+const dictionary_name = document.getElementById('dictionary_name')
+const synonyms = document.getElementById('synonyms')
+
+
 
 searchInput.addEventListener('input', function () {
     console.log('search')
@@ -76,11 +73,23 @@ searchInput.addEventListener('keydown', function (event) {
 
         // wordEn.textContent = selectedWord
         wordEn.value = selectedObject.english_word
-        wordRu.value = selectedObject.russian_translation
+        Translation.value = selectedObject.russian_translation
+        transcription.value = selectedObject.transcription
+        rating.value = selectedObject.rating
+        dict.value = selectedObject.dict
+        status.value = selectedObject.status
+        dictionary_name.value = selectedObject.dictionary_name
+        synonyms.value = selectedObject.synonyms
+
+
+
+
 
 
         resultList.style.display = 'none'
         searchInput.value = selectedObject.english_word
+
+
 
     }
 })

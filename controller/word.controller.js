@@ -2,16 +2,16 @@ const db = require('../db')
 
 
 class WordController {
+
     //отправляет страницу
     async allWords(req, res) {
-        console.log("allWords")
+        console.log('allWords - отправляет страницу allWords.html')
         res.sendFile('/Users/st/js/words/views/allWords.html')
     }
 
 
 //отправляет данные со словами
     async getAllWords(req, res) {
-        console.log('getAllWords')
         const allWords = await db.query(`SELECT
     t.english_word,
     t.russian_word
@@ -31,24 +31,11 @@ WHERE
 
     //окно поиска по словам из базы данных
     async getSearch(req, res) {
+        console.log('getSearch - поиск в бд слов')
         const wordQuery = req.query.q;
-
-
-        //     const sqlQuery = `
-        //   SELECT
-        //       english_word,
-        //       russian_translation
-        //   FROM
-        //       translator
-        //   WHERE
-        //       english_word ILIKE $1
-        //       LIMIT 10;
-        // `;
-
-
         const sqlQuery = `
-            SELECT
-            t.id,
+SELECT
+    t.id,
     t.english_word,
     t.russian_word,
     wi.transcription,
@@ -77,7 +64,7 @@ LEFT JOIN
 WHERE
     t.english_word ILIKE $1
 GROUP BY
-t.id,
+    t.id,
     t.english_word,
     t.russian_word,
     wi.transcription,
@@ -95,19 +82,15 @@ t.id,
     wi.rating,
     wi.word_status
 LIMIT 10;
-        `;
-
-
+        `; //sql запрос
         const results = await db.query(sqlQuery, [wordQuery + '%'])
 
-        console.log(results.rows)
-
         res.json(results.rows);
+        console.log('getSearch ищет по запросу: ',  wordQuery, 'отправляет: ', results.rows)
     }
 
     //редактировать слово в бд
     async updateWord(req, res) {
-        console.log('updateWord')
         const {
             id,
             original,
@@ -160,28 +143,22 @@ LIMIT 10;
 `
         await db.query(editWordInfo, [transcription, synonyms, pss, psst, pp, ppt, pps, ppst, ppp, pppt, pos, dict, rating, word_status, id])
 
-
         res.send('200')
+        console.log('updateWord обновило слово в бд')
     }
 
     //обновление статуса
     async updateWordStatus(req, res) {
         const {id} = req.body
-        console.log('updateWordStatus')
-        console.log(id)
-
         const editWordInfo = `
-       UPDATE word_info
+      UPDATE word_info
       SET word_status = 'done'
       WHERE word_id = $1;
 `
         await db.query(editWordInfo, [id])
-
-
         res.send('200')
+        console.log('updateWordStatus')
     }
-
-
 }
 
 module.exports = new WordController()

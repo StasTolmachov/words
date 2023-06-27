@@ -96,7 +96,7 @@ WHERE
 
 
 SELECT
-            t.id,
+    t.id,
     t.english_word,
     t.russian_word,
     wi.transcription,
@@ -123,9 +123,9 @@ LEFT JOIN
 LEFT JOIN
     dictionaries d ON dw.dictionary_id = d.id
 WHERE
-    t.english_word = 'car'
+    t.english_word ILIKE $1
 GROUP BY
-t.id,
+    t.id,
     t.english_word,
     t.russian_word,
     wi.transcription,

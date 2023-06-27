@@ -1,10 +1,12 @@
-console.log('script allWords')
+console.log('script allWords started')
 
 //окно поиска по словам из базы данных
 const searchInput = document.getElementById('input-text')
+//выпадающий список с результатом поиска
 const resultList = document.getElementById('results')
 let selectedIndex = -1
-const wordInfo = document.getElementById('wordInfo')
+let wordInfo
+
 
 
 const original = document.getElementById('original')
@@ -28,18 +30,18 @@ const ppp = document.getElementById('ppp')
 const pppt = document.getElementById('pppt')
 
 
-let selectedObject = null
 
-
+//поиск
 searchInput.addEventListener('input', function () {
-    console.log('search')
+    console.log('searchInput listen: input')
     const query = this.value
-    console.log(query)
+    console.log('query = this.value:', query)
 
     if (query) {
         fetch(`/api/search?q=${query}`)
             .then(response => response.json())
             .then(results => {
+                console.log('.then(results => {', results)
                 resultList.innerHTML = ''
                 selectedIndex = -1
 
@@ -57,9 +59,10 @@ searchInput.addEventListener('input', function () {
     }
 })
 
+//выбор из поиска клавишами вверх/вниз
 searchInput.addEventListener('keydown', function (event) {
     const items = resultList.getElementsByTagName('li')
-    console.log(items)
+    console.log('items:' + items)
 
     if (event.key === 'ArrowDown' && selectedIndex < items.length - 1) {
         // Снимаем выделение с текущего элемента
@@ -80,9 +83,11 @@ searchInput.addEventListener('keydown', function (event) {
         // Нажат Enter, выводим дополнительную информацию
         const selectedWord = items[selectedIndex];
         // Здесь можно запросить и вывести дополнительную информацию о слове
-        console.log('Selected word:', selectedWord);
-        selectedObject = JSON.parse(selectedWord.dataset.wordInfo)
-        console.log(selectedObject.english_word)
+        const selectedObject = JSON.parse(selectedWord.dataset.wordInfo)
+        console.log('selectedObject:', selectedObject)
+
+        wordInfo = selectedObject
+        console.log('wordInfo', typeof wordInfo, wordInfo)
 
         // wordEn.textContent = selectedWord
         id.textContent = selectedObject.id
@@ -105,18 +110,16 @@ searchInput.addEventListener('keydown', function (event) {
         ppp.textContent = selectedObject.ppp
         pppt.textContent = selectedObject.pppt
 
-
         resultList.style.display = 'none'
-        // searchInput.textContent = selectedObject.english_word
-
-
     }
 })
 
+//редактирование и сохранение по нажатию ентер
 document.getElementById("wordInfo").addEventListener("keydown", (e) => {
     // Предотвращение стандартного поведения формы
     if (e.key === "Enter") {
         e.preventDefault()
+
 
         // Сбор данных формы
         const idString = document.getElementById("id").textContent;
@@ -183,6 +186,7 @@ document.getElementById("wordInfo").addEventListener("keydown", (e) => {
     }
 });
 
+//кнопка изменения статуса
 document.addEventListener("submit", () => {
     const idString = document.getElementById("id").textContent;
     const id = parseInt(idString, 10)
@@ -208,3 +212,4 @@ document.addEventListener("submit", () => {
         });
 
 })
+

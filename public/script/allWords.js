@@ -182,3 +182,29 @@ document.getElementById("wordInfo").addEventListener("keydown", (e) => {
             });
     }
 });
+
+document.addEventListener("submit", () => {
+    const idString = document.getElementById("id").textContent;
+    const id = parseInt(idString, 10)
+    const word_status = document.getElementById("word_status").textContent;
+
+
+    const data = {
+        id
+    }
+    fetch('/api/updateWordStatus', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
+})

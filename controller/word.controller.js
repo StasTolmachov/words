@@ -108,7 +108,25 @@ LIMIT 10;
     //редактировать слово в бд
     async updateWord(req, res) {
         console.log('updateWord')
-        const {id, original, translation, transcription, synonyms, pss, psst, pp, ppt, pps, ppst, ppp, pppt, pos, dict, rating, word_status } = req.body;
+        const {
+            id,
+            original,
+            translation,
+            transcription,
+            synonyms,
+            pss,
+            psst,
+            pp,
+            ppt,
+            pps,
+            ppst,
+            ppp,
+            pppt,
+            pos,
+            dict,
+            rating,
+            word_status
+        } = req.body;
 
         const editTranslator = `
         UPDATE
@@ -146,33 +164,25 @@ LIMIT 10;
         res.send('200')
     }
 
+    //обновление статуса
+    async updateWordStatus(req, res) {
+        const {id} = req.body
+        console.log('updateWordStatus')
+        console.log(id)
+
+        const editWordInfo = `
+       UPDATE word_info
+      SET word_status = 'done'
+      WHERE word_id = $1;
+`
+        await db.query(editWordInfo, [id])
+
+
+        res.send('200')
+    }
+
 
 }
 
 module.exports = new WordController()
-
-// считывание с базы данных
-// const allWords = await db.query(`SELECT
-//     t.english_word,
-//     t.russian_translation
-// FROM
-//     dictionaries d
-// INNER JOIN
-//     dictionary_words dw ON d.id = dw.dictionary_id
-// INNER JOIN
-//     translator t ON dw.word_id = t.id
-// WHERE
-//     d.name = 'A1';
-// `)
-
-
-// udate words
-// UPDATE translator
-// SET russian_translation = $1
-// WHERE id = $2;
-//
-//
-// UPDATE word_info
-// SET transcription = $1, synonyms = $2, ...
-// WHERE word_id = $3;
 

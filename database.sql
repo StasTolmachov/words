@@ -85,3 +85,61 @@ INNER JOIN
     translator t ON dw.word_id = t.id
 WHERE
     d.name = 'Fruits';
+
+
+
+
+
+
+
+
+
+
+SELECT
+            t.id,
+    t.english_word,
+    t.russian_word,
+    wi.transcription,
+    wi.synonyms,
+    wi.pss,
+    wi.psst,
+    wi.pp,
+    wi.ppt,
+    wi.pps,
+    wi.ppst,
+    wi.ppp,
+    wi.pppt,
+    wi.pos,
+    wi.dict,
+    wi.rating,
+    wi.word_status,
+    STRING_AGG(d.name, ', ') AS dictionary_names
+FROM
+    translator t
+LEFT JOIN
+    word_info wi ON t.id = wi.word_id
+LEFT JOIN
+    dictionary_words dw ON t.id = dw.word_id
+LEFT JOIN
+    dictionaries d ON dw.dictionary_id = d.id
+WHERE
+    t.english_word = 'car'
+GROUP BY
+t.id,
+    t.english_word,
+    t.russian_word,
+    wi.transcription,
+    wi.synonyms,
+    wi.pss,
+    wi.psst,
+    wi.pp,
+    wi.ppt,
+    wi.pps,
+    wi.ppst,
+    wi.ppp,
+    wi.pppt,
+    wi.pos,
+    wi.dict,
+    wi.rating,
+    wi.word_status
+LIMIT 10;

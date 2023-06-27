@@ -4,7 +4,7 @@ CREATE DATABASE words;
 CREATE TABLE translator (
     id SERIAL PRIMARY KEY,
     english_word VARCHAR(255) NOT NULL UNIQUE,
-    russian_translation VARCHAR(255) NOT NULL
+    russian_word VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE word_info (
@@ -12,17 +12,18 @@ CREATE TABLE word_info (
     word_id INTEGER REFERENCES translator(id),
     transcription VARCHAR(255),
     synonyms TEXT,
-    ps VARCHAR(255),
-    pps VARCHAR(255),
-    pst VARCHAR(255),
+    pss VARCHAR(255),
+    psst VARCHAR(255),
+    pp VARCHAR(255),
     ppt VARCHAR(255),
+    pps VARCHAR(255),
     ppst VARCHAR(255),
     ppp VARCHAR(255),
     pppt VARCHAR(255),
     pos VARCHAR(255),
     dict VARCHAR(255),
     rating INTEGER,
-    status VARCHAR(255)
+    word_status VARCHAR(255)
 );
 
 CREATE TABLE dictionaries (
@@ -36,19 +37,19 @@ CREATE TABLE dictionary_words (
     PRIMARY KEY (dictionary_id, word_id)
 );
 //добавление слов в переводчик
-INSERT INTO translator (english_word, russian_translation)
+INSERT INTO translator (english_word, russian_word)
 VALUES ('apple', 'яблоко'),
        ('banana', 'банан'),
        ('cherry', 'вишня'),
        ('grape', 'виноград'),
        ('peach', 'персик');
 //добавление доп инфо про слово
-INSERT INTO word_info (word_id, transcription, synonyms, ps, pps, pst, ppt, ppst, ppp, pppt, pos, dict, rating, status)
-VALUES ((SELECT id FROM translator WHERE english_word = 'apple'), 'ˈæpl', 'pippin, fruit', 'eats', 'eats', 'ate', 'eaten', 'was eating', 'has eaten', 'had eaten', 'noun', 'fruits', 5, 'active'),
-       ((SELECT id FROM translator WHERE english_word = 'banana'), 'bəˈnænə', 'plantain', 'eats', 'eats', 'ate', 'eaten', 'was eating', 'has eaten', 'had eaten', 'noun', 'fruits', 4, 'active'),
-       ((SELECT id FROM translator WHERE english_word = 'cherry'), 'ˈtʃɛri', 'tart', 'eats', 'eats', 'ate', 'eaten', 'was eating', 'has eaten', 'had eaten', 'noun', 'fruits', 5, 'active'),
-       ((SELECT id FROM translator WHERE english_word = 'grape'), 'greɪp', 'vitis', 'eats', 'eats', 'ate', 'eaten', 'was eating', 'has eaten', 'had eaten', 'noun', 'fruits', 3, 'active'),
-       ((SELECT id FROM translator WHERE english_word = 'peach'), 'piːtʃ', 'prunus', 'eats', 'eats', 'ate', 'eaten', 'was eating', 'has eaten', 'had eaten', 'noun', 'fruits', 4, 'active');
+INSERT INTO word_info (word_id, transcription, synonyms, pss, psst, pp, ppt, pps, ppst, ppp, pppt, pos, dict, rating, word_status)
+VALUES ((SELECT id FROM translator WHERE english_word = 'apple'), 'ˈæpl', 'pippin, fruit', 'eats', 'eats', 'ate', 'eaten', 'was eating', 'has eaten', 'had eaten', 'add', 'noun', 'fruits', 5, 'active'),
+       ((SELECT id FROM translator WHERE english_word = 'banana'), 'bəˈnænə', 'plantain', 'eats', 'eats', 'ate', 'eaten', 'was eating', 'has eaten', 'had eaten', 'add', 'noun', 'fruits', 4, 'active'),
+       ((SELECT id FROM translator WHERE english_word = 'cherry'), 'ˈtʃɛri', 'tart', 'eats', 'eats', 'ate', 'eaten', 'was eating', 'has eaten', 'had eaten', 'add', 'noun', 'fruits', 5, 'active'),
+       ((SELECT id FROM translator WHERE english_word = 'grape'), 'greɪp', 'vitis', 'eats', 'eats', 'ate', 'eaten', 'was eating', 'has eaten', 'had eaten', 'add', 'noun', 'fruits', 3, 'active'),
+       ((SELECT id FROM translator WHERE english_word = 'peach'), 'piːtʃ', 'prunus', 'eats', 'eats', 'ate', 'eaten', 'was eating', 'has eaten', 'had eaten', 'add', 'noun', 'fruits', 4, 'active');
 
 
 //добавление словаря
@@ -75,7 +76,7 @@ WHERE
 // вывод слов из словаря
 SELECT
     t.english_word,
-    t.russian_translation
+    t.russian_word
 FROM
     dictionaries d
 INNER JOIN

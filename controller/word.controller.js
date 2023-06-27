@@ -14,7 +14,7 @@ class WordController {
         console.log('getAllWords')
         const allWords = await db.query(`SELECT
     t.english_word,
-    t.russian_translation
+    t.russian_word
 FROM
     dictionaries d
 INNER JOIN
@@ -48,23 +48,24 @@ WHERE
 
         const sqlQuery = `
             SELECT
-    t.id,
+            t.id,
     t.english_word,
-    t.russian_translation,
+    t.russian_word,
     wi.transcription,
     wi.synonyms,
-    wi.ps,
-    wi.pps,
-    wi.pst,
+    wi.pss,
+    wi.psst,
+    wi.pp,
     wi.ppt,
+    wi.pps,
     wi.ppst,
     wi.ppp,
     wi.pppt,
     wi.pos,
     wi.dict,
     wi.rating,
-    wi.status,
-    d.name AS dictionary_name
+    wi.word_status,
+    STRING_AGG(d.name, ', ') AS dictionary_names
 FROM
     translator t
 LEFT JOIN
@@ -75,6 +76,24 @@ LEFT JOIN
     dictionaries d ON dw.dictionary_id = d.id
 WHERE
     t.english_word ILIKE $1
+GROUP BY
+t.id,
+    t.english_word,
+    t.russian_word,
+    wi.transcription,
+    wi.synonyms,
+    wi.pss,
+    wi.psst,
+    wi.pp,
+    wi.ppt,
+    wi.pps,
+    wi.ppst,
+    wi.ppp,
+    wi.pppt,
+    wi.pos,
+    wi.dict,
+    wi.rating,
+    wi.word_status
 LIMIT 10;
         `;
 
@@ -85,6 +104,49 @@ LIMIT 10;
 
         res.json(results.rows);
     }
+
+    //редактировать слово в бд
+    async updateWord(req, res) {
+        console.log('updateWord')
+        const {id, original, translation, transcription, synonyms, pss, psst, pp, ppt, pps, ppst, ppp, pppt, pos, dict, rating, word_status } = req.body;
+
+        const editTranslator = `
+        UPDATE
+        translator
+        SET
+        english_word = $1,
+        russian_word = $2
+        WHERE
+        id = $3;`
+
+        await db.query(editTranslator, [original, translation, id])
+
+        const editWordInfo = `
+        UPDATE word_info
+        SET
+        transcription = $1,
+        synonyms = $2,
+        pss = $3,
+        psst = $4,
+        pp = $5,
+        ppt = $6,
+        pps = $7,
+        ppst = $8,
+        ppp = $9,
+        pppt = $10,
+        pos = $11,
+        dict = $12,
+        rating = $13,
+        word_status = $14
+        WHERE word_id = $15;
+`
+        await db.query(editWordInfo, [transcription, synonyms, pss, psst, pp, ppt, pps, ppst, ppp, pppt, pos, dict, rating, word_status, id])
+
+
+        res.send('200')
+    }
+
+
 }
 
 module.exports = new WordController()
@@ -102,7 +164,6 @@ module.exports = new WordController()
 // WHERE
 //     d.name = 'A1';
 // `)
-
 
 
 // udate words

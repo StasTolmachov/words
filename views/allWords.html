@@ -33,43 +33,57 @@
     <table border="1">
       <!-- Заголовки столбцов -->
       <tr>
-        <th>English Word</th>
+        <th>original</th>
         <th>transcription</th>
-
-        <th>Russian Translation</th>
-        <th>Rating</th>
+        <th>translation</th>
+        <th>rating</th>
         <th>dict</th>
-        <th>status</th>
+        <th>word_status</th>
         <th>dictionary_name</th>
-
-
-
         <th>synonyms</th>
+        <th>id</th>
+        <th>pos</th>
 
-
-
-
-
+        <th>pss</th>
+        <th>psst</th>
+        <th>pp</th>
+        <th>ppt</th>
+        <th>pps</th>
+        <th>ppst</th>
+        <th>ppp</th>
+        <th>pppt</th>
       </tr>
 
       <!-- Строка с данными -->
       <tr>
-        <td><input type="text" id="wordEn" placeholder="wordEn"></td>
-        <td><input type="text" id="transcription" placeholder="transcription"></td>
-        <td><input type="text" id="Translation" placeholder="Translation"></td>
-        <td><input type="text" id="rating" placeholder="rating"></td>
-        <td><input type="text" id="dict" placeholder="dict"></td>
-        <td><input type="text" id="status" placeholder="status"></td>
-        <td><input type="text" id="dictionary_name" placeholder="dictionary_name"></td>
-        <td><input type="text" id="synonyms" placeholder="synonyms"></td>
+        <td contenteditable="true" id="original"></td>
+        <td contenteditable="true" id="transcription"></td>
+        <td contenteditable="true" id="translation"></td>
+        <td contenteditable="true" id="rating"></td>
+        <td contenteditable="true" id="dict"></td>
+        <td contenteditable="true" id="word_status"></td>
+        <td contenteditable="true" id="dictionary_names"></td>
+        <td contenteditable="true" id="synonyms"></td>
+        <td contenteditable="true" id="id"></td>
+        <td contenteditable="true" id="pos"></td>
 
-
-
+        <td contenteditable="true" id="pss"></td>
+        <td contenteditable="true" id="psst"></td>
+        <td contenteditable="true" id="pp"></td>
+        <td contenteditable="true" id="ppt"></td>
+        <td contenteditable="true" id="pps"></td>
+        <td contenteditable="true" id="ppst"></td>
+        <td contenteditable="true" id="ppp"></td>
+        <td contenteditable="true" id="pppt"></td>
 
       </tr>
     </table>
+<!--    <button type="submit">Submit</button>-->
+
   </form>
 </div>
+
+
 
 </body>
 <script src="/script/allWords.js"></script>

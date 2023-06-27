@@ -6,6 +6,9 @@ router.get('/allWords', wordController.allWords)
 
 router.get('/getAllWords', wordController.getAllWords)
 router.get('/search', wordController.getSearch)
+router.post('/updateWord', wordController.updateWord)
+
+
 
 
 

@@ -9,6 +9,9 @@ const wordRouter = require('./routes/word.routes')
 
 api.use(express.static('public'));
 
+api.use(express.json());
+api.use(express.urlencoded({ extended: true }));
+
 
 const PORTapi = 8080
 const PORTlocal = 3000
@@ -23,7 +26,7 @@ const PORT = PORTlocal
 
 // const DB_URL = `mongodb+srv://stasvv1:tUe8UsaR2XoIQKNa@words.iz19pkt.mongodb.net/?retryWrites=true&w=majority`
 
-api.use(express.json())
+
 
 api.use('/api', wordRouter)
 

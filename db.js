@@ -9,9 +9,19 @@ const Pool = require('pg').Pool
 
 
 //local
+// const pool = new Pool({
+//     user: "st",
+//     password: 'root',
+//     host: "localhost",
+//     port: 5432,
+//     database: 'words'
+// })
+
+//macbook
+
 const pool = new Pool({
-    user: "st",
-    password: 'root',
+    user: "postgres",
+    password: '4171',
     host: "localhost",
     port: 5432,
     database: 'words'

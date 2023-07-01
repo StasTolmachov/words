@@ -6,7 +6,7 @@ class WordController {
     //отправляет страницу
     async allWords(req, res) {
         console.log('allWords - отправляет страницу allWords.html')
-        res.sendFile('/Users/st/js/words/views/allWords.html')
+        res.sendFile('/Users/st/js/src/words/views/allWords.html')
     }
 
 

@@ -8,6 +8,8 @@ router.get('/getAllWords', wordController.getAllWords)
 router.get('/search', wordController.getSearch)
 router.post('/updateWord', wordController.updateWord)
 router.post('/updateWordStatus', wordController.updateWordStatus)
+router.get('/study', wordController.study)
+
 
 
 

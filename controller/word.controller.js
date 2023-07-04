@@ -1,3 +1,4 @@
+const { log } = require('winston')
 const db = require('../db')
 
 
@@ -159,6 +160,53 @@ LIMIT 10;
         res.send('200')
         console.log('updateWordStatus')
     }
+
+
+    //study
+
+    async study(req, res) {
+        try {
+            let lessonWordDb = await db.query(`
+                SELECT
+                    t.english_word,
+                    w.transcription,
+                    w.synonyms,
+                    w.pss,
+                    w.psst,
+                    w.pp,
+                    w.ppt,
+                    w.pps,
+                    w.ppst,
+                    w.ppp,
+                    w.pppt,
+                    w.pos,
+                    w.dict,
+                    w.rating,
+                    w.word_status
+                FROM
+                    word_info AS w
+                JOIN
+                    translator AS t ON w.word_id = t.id
+                ORDER BY
+                    w.rating ASC
+                LIMIT
+                    10;
+            `);
+    
+            
+            res.json(lessonWordDb.rows);
+            console.log(lessonWordDb.rows);
+    
+        } catch (error) {
+            console.error('Error executing query:', error);
+            res.status(500).send('Internal server error');
+        }
+    }
+
+    async studyTemplate(req, res) {
+        res.sendFile('/Users/st/js/src/words/views/studyTemplate.html')
+    }
+    
 }
 
 module.exports = new WordController()
